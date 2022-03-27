@@ -1,60 +1,80 @@
-import React, { Component } from "react";
-import axios from 'axios';
+import axios from 'axios'
+import React, { useState } from 'react'
+import AuthService from "../services/auth.service";
 import Button from 'react-bootstrap/Button'
-class App extends Component {
-state={
-  file:null
-}
 
-  handelFile(e){
-    let file =e.target.files[0]
-    this.setState({file:file})
-  }
- handelUpload(e){
-   consol.log(this.state ,"The State -----")
- 
- axios({
-  method: 'POST',
-  url: '/user/12345',
-  headers:{
-    authorization: 'your token'
-  }
-  }).then((res)=>{
+const API_URL = "http://localhost:8080/api/document";
+const AddProduct = ({ history }) => {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [published, setPublished] = useState(true)
+  const [document, setImage] = useState('')
 
-  })
- }
-  
-  
-  render() {
-    return (
+  const addProductHandler = async (e) => {
+    e.preventDefault()
+    const user = AuthService.getCurrentUser();
+    const userID = user.id;
+    const formData = new FormData()
+
+    formData.append('document', document)
+    formData.append('title', title)
+    formData.append('description', description)
+    formData.append('published', published)
+    await axios.post(API_URL + `adddocument/${userID}`, formData)
+    history.push('/user')
+  }
+
+  return (
+    <>
       <div className="row">
-        <form className="column">
+        <form className="column" onSubmit={addProductHandler} method="POST" encType='multipart/form-data'>
           <div className="mb-3 mt-3">
-            <label forHtml="HtmlmFile" class="Htmlm-label"><h2>Choose before Pressing the Upload button</h2></label>
-            <input class="form-control" type="file" id="formFile" onChange={(e)=>this.handelFile(e)} />
+            <label forhtml="HtmlmFile" className="Html-label"><h2>Choose before Pressing the Upload button</h2></label>
+            <input className="form-control"
+              type="file"
+              id="formFile"
+              name='image'
+              onChange={(e) => setImage(e.target.files[0])}
+              size="lg" />
           </div>
           <div className="mb-3">
-            <label forHtml="text" className="form-label">Title of Document:</label>
-            <input type="text" className="form-control" id="#" placeholder="Give some title..." name="title" onClick={this.onFileTitle} />
+            <label forhtml="text" className="form-label">Title of Document:</label>
+            <input className="form-control"
+              type="text"
+              id="#"
+              placeholder="Give some title..."
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)} />
           </div>
           <div className="mb-3">
-            <label forHtml="text" className="form-label">Description:</label>
-            <input type="text" className="form-control" id="#" placeholder="Give some description..." name="description" onClick={this.onFileTitle} />
+            <label forhtml="text" className="form-label">Description:</label>
+            <input className="form-control"
+              type="text"
+              id="#"
+              placeholder="Give some description..."
+              name="description"
+              value={description} onChange={(e) => setDescription(e.target.value)}
+              as="textarea" />
           </div>
           <div className="form-check mb-3">
             <label className="form-check-label">
-              <input className="form-check-input" type="checkbox" name="publish" onClick={this.onFilePublish} /> Publish
+              <input className="form-check-input"
+                type="checkbox"
+                name="publish"
+                onChange={(e) => setPublished(e.target.checked)} /> Publish
             </label>
           </div>
           <div>
             <p>Choose file before click upload button</p>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={(e)=>this.handelUpload(e)} >Upload</button>
+          <button type="submit" className="btn btn-primary" >Upload</button>
           <br></br> <br></br>
           <Button href="/showdoc">Show Document List</Button>
         </form>
       </div>
-    );
-  }
+    </>
+  );
 }
-export default App; 
+
+export default AddProduct; 

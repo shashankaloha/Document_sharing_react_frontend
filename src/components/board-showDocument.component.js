@@ -33,7 +33,7 @@ class showDocument extends React.Component {
 
             <div className="column">
                 <h2> Uploaded Documents List</h2>
-                <table class="table table-dark table-hover">
+                <table className="table table-dark table-hover">
                     <thead>
                         <tr>
                             <th>S.no.</th>

@@ -11,7 +11,8 @@ import BoardUser from "./components/board-user.component";
 import BoardReviewer from "./components/board-reviewer.component";
 import BoardAdmin from "./components/board-admin.component";
 import ShowDocument from "./components/board-showDocument.component";
-import { Switch, Route, } from 'react-router-dom';
+import { Switch, Route,Link } from 'react-router-dom';
+import AddProduct from "./screens/AddProduct";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -52,17 +53,24 @@ class App extends Component {
                 <a className="nav-link" href="/home">Home</a>
               </li>
               {showReviewerBoard && (
+                 <div className="navbar-nav ">
                 <li className="nav-item">
-                  <a className="nav-link" href="/mod">Shared Document</a>
+                  <a className="nav-link" href="/mod">SharedDocument</a>
                 </li>
+                <li className="nav-item">
+              <Link to={"/addDocument"} className="nav-link">
+                AddDocument
+              </Link>
+            </li>
+                </div>
               )}
               {showAdminBoard && (
                 <div className="navbar-nav ">
                   <li className="nav-item">
-                    <a className="nav-link" href="/admin">Admin Board</a>
+                    <a className="nav-link" href="/admin">AdminBoard</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/register">Add User</a>
+                    <a className="nav-link" href="/register">AddUser</a>
                   </li>
                 </div>
               )}
@@ -103,6 +111,7 @@ class App extends Component {
             <Route path="/rev" component={BoardReviewer} />
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/showdoc" component={ShowDocument} />
+            <Route path="/addDocument" component={AddProduct} />
           </Switch>
         </div>
       </div>

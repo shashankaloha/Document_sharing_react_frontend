@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import authService from "../services/auth.service";
 class home extends React.Component {
 
