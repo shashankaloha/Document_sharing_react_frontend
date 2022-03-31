@@ -40,15 +40,15 @@ const vpassword = value => {
   }
 };
 
-const vrole = value => {
-  if (value.unchecked < 6 || value.length > 40) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        Select at least one role.
-      </div>
-    );
-  }
-};
+// const vrole = value => {
+//   if (value.unchecked < 6 || value.length > 40) {
+//     return (
+//       <div className="alert alert-danger" role="alert">
+//         Select at least one role.
+//       </div>
+//     );
+//   }
+// };
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -98,7 +98,7 @@ export default class Register extends Component {
         this.state.username,
         this.state.email,
         this.state.password,
-        this.state.role
+        // this.state.role
       ).then(
         response => {
           this.setState({
@@ -171,7 +171,7 @@ export default class Register extends Component {
                     validations={[required, vpassword]}
                   />
                 </div>
-                <div className="form-check">
+                {/* <div className="form-check">
                   <input className="form-check-input"
                     type="checkbox" id="admin"
                     name="role"
@@ -194,7 +194,7 @@ export default class Register extends Component {
                     value={this.state.reviewer} onChange={this.onChangeReviewer}
                     validations={[required, vrole]} />
                   <label className="form-check-label">Reviewer</label>
-                </div>
+                </div> */}
                 <br></br>
                 <div className="form-group">
                   <button className="btn btn-primary btn-block">Sign Up</button>

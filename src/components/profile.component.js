@@ -10,34 +10,37 @@ export default class Profile extends Component {
   render() {
     const { currentUser } = this.state;
     return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>
-            User Profile <strong>{currentUser.username}</strong>
-          </h3>
-        </header>
-        <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-        </p>
-        <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
-        </p>
-        <p>
-          <strong>Mobile No.:</strong>{" "}
-          {currentUser.mobile}
-        </p>
-        <p>
-          <strong>Email:</strong>{" "}
-          {currentUser.email}
-        </p>
-        <strong>Authorities:</strong>
-        <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-        </ul>
+      <div className="col-md-12">
+        <div className="card card-container">
+          <header className="jumbotron">
+            <h3>
+              User Name: <strong>{currentUser.username}</strong>
+            </h3>
+          </header>
+          <p>
+            <strong>Token:</strong>{" "}
+            {currentUser.accessToken.substring(0, 20)} ...{" "}
+            {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+          </p>
+          <p>
+            <strong>Id:</strong>{" "}
+            {currentUser.id}
+          </p>
+          <p>
+            <strong>Mobile No.:</strong>{" "}
+            {currentUser.mobile}
+          </p>
+          <p>
+            <strong>Email:</strong>{" "}
+            {currentUser.email}
+          </p>
+          <strong>Authorities:</strong>
+          <ul>
+            {currentUser.roles &&
+              currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+          </ul>
+        </div>
+
       </div>
     );
   }

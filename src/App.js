@@ -6,13 +6,17 @@ import AuthService from "./services/auth.service";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
+import Dashboard from "./components/board-user.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
+import AddDocument from "./components/AddDocument";
+import EditDocument from "./components/EditDocument";
+import DocumentDetail from "./components/document-detail";
+import UserDocDetail from "./components/user-doc-detail";
 import BoardReviewer from "./components/board-reviewer.component";
 import BoardAdmin from "./components/board-admin.component";
 import ShowDocument from "./components/board-showDocument.component";
 import { Switch, Route,Link } from 'react-router-dom';
-import AddProduct from "./screens/AddProduct";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +44,6 @@ class App extends Component {
     const { currentUser, showReviewerBoard, showAdminBoard } = this.state;
     return (
       <div>
-
         <nav className="navbar navbar-expand-md ">
         <div className="container-fluid">
           <a className="navbar-brand text-uppercase" href="/">Document Sharing Platform</a>
@@ -55,7 +58,7 @@ class App extends Component {
               {showReviewerBoard && (
                  <div className="navbar-nav ">
                 <li className="nav-item">
-                  <a className="nav-link" href="/mod">SharedDocument</a>
+                  <a className="nav-link" href="/mydoc">MyDocument</a>
                 </li>
                 <li className="nav-item">
               <Link to={"/addDocument"} className="nav-link">
@@ -76,7 +79,7 @@ class App extends Component {
               )}
               {currentUser && (
                 <li className="nav-item">
-                  <a className="nav-link" href="/user">Dashboard</a>
+                  <a className="nav-link" href="/showdoc">Dashboard</a>
                 </li>
               )}
             </div>
@@ -107,11 +110,14 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/rev" component={BoardReviewer} />
+            <Route path="/addDocument" component={AddDocument} />
+            <Route exact path="/document/edit/:id" component={EditDocument} />
+            <Route path="/mydoc" component={BoardReviewer} />
+            <Route path="/userdoc/:id" component={UserDocDetail} />
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/showdoc" component={ShowDocument} />
-            <Route path="/addDocument" component={AddProduct} />
+            <Route path="/showdoc" component={Dashboard} />
+            <Route exact path="/document/:id" component={DocumentDetail} />
           </Switch>
         </div>
       </div>
