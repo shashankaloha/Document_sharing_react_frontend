@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Button, Container, Form, Row, Col } from 'react-bootstrap'
 import AuthService from "../services/auth.service";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
 
-
 const DocumentDetail = () => {
-
     const { id } = useParams()
     const history = useHistory()
-
     const [title, setTitle] = useState('')
-    const [link,setLink] = useState('')
+    const [link, setLink] = useState('')
     const [documentDescription, setDocumentDescription] = useState('')
     //const [published, setPublished] = useState(true)
 
@@ -22,7 +19,6 @@ const DocumentDetail = () => {
     const [userName, setDocumentUserName] = useState('')
 
     useEffect(() => {
-
         const getSingleDocumentData = async () => {
             const { data } = await axios.get(`http://localhost:8080/api/document/getdocumentReviews/${id}`)
             console.log(data)
@@ -35,35 +31,28 @@ const DocumentDetail = () => {
             setReviews(data.review)
         }
         getSingleDocumentData()
-
     }, [id])
-
     // handling Delete
-
     const handleDelete = async (id) => {
         await axios.delete(`http://localhost:8080/api/document/${id}`)
         history.push('/mydoc')
     }
     // to add review
     const addReviewHandler = async (e) => {
-
         e.preventDefault()
-        const user=  AuthService.getCurrentUser();
+        const user = AuthService.getCurrentUser();
         const username = user.username;
-
         let review = {
             document_id: id,
             name: username,
             description: description
         }
-
         await axios.post(`http://localhost:8080/api/document/addReview/${id}`, review)
 
         window.location.reload(true);
     }
     return (
         <>
-
             <Container className="mt-10 p-4">
                 <h1>Detail Document</h1>
                 <hr />
@@ -77,28 +66,19 @@ const DocumentDetail = () => {
                                 <Card.Text>
                                     Description: {documentDescription}
                                 </Card.Text>
-
                                 <Button variant="success" href={link}>Download</Button>{' '}
-  
-
                                 <Link to={`/document/edit/${id}`}>
                                     <Button>Edit</Button>
                                 </Link>
-
                                 <Button className="btn btn-danger m-2" onClick={() => handleDelete(id)}>Delete</Button>
-
                             </Card.Body>
                         </Card>
                     </Col>
-
-
                     <Col md={4} lg={4} sm={4}>
-
                         <h2 className='text-center'>Add Review</h2>
                         <hr />
-
                         <Form onSubmit={addReviewHandler}>
-                        <Form.Group className="mb-3" controlId="description">
+                            <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Comment</Form.Label>
                                 <Form.Control
                                     value={description}
@@ -107,31 +87,22 @@ const DocumentDetail = () => {
                                     required='{true}'
                                 />
                             </Form.Group>
-
-
                             <Button variant="primary" type="submit">
                                 Add Comment
                             </Button>
                         </Form>
-
                         <br />
-
                         <h5>Document Comments</h5>
                         <hr />
-
                         {reviews.length > 0 ? (
                             reviews.map(review => {
                                 return <p key={review.id}><b>{review.name} :</b><></> {review.description}</p>
                             })
                         ) : (<p> No Comments for this Document </p>)}
-
-
                     </Col>
                 </Row>
             </Container>
-
         </>
     )
 }
-
 export default DocumentDetail

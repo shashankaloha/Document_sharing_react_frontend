@@ -15,7 +15,7 @@ import UserDocDetail from "./components/user-doc-detail";
 import BoardReviewer from "./components/board-reviewer.component";
 import BoardAdmin from "./components/board-admin.component";
 import ShowDocument from "./components/board-showDocument.component";
-import { Switch, Route,Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -44,64 +44,65 @@ class App extends Component {
     const { currentUser, showReviewerBoard, showAdminBoard } = this.state;
     return (
       <div>
-        <nav className="navbar navbar-expand-md ">
-        <div className="container-fluid">
-          <a className="navbar-brand text-uppercase" href="/">Document Sharing Platform</a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="collapsibleNavbar">
-            <div className="navbar-nav ">
-              <li className="nav-item">
-                <a className="nav-link" href="/home">Home</a>
-              </li>
-              {showReviewerBoard && (
-                 <div className="navbar-nav ">
+        <nav className="navbar navbar-expand-lg navbar-dark ">
+          <div className="container  p-1">
+            <a className="navbar-brand font-weight-bold text-dark text-uppercase" href="/home">Document Sharing Platform</a>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="collapsibleNavbar">
+
+              <div className="navbar-nav ">
                 <li className="nav-item">
-                  <a className="nav-link" href="/mydoc">MyDocument</a>
+                  <a className="nav-link" href="/home">Home</a>
                 </li>
-                <li className="nav-item">
-              <Link to={"/addDocument"} className="nav-link">
-                AddDocument
-              </Link>
-            </li>
-                </div>
-              )}
-              {showAdminBoard && (
-                <div className="navbar-nav ">
+                {showReviewerBoard && (
+                  <div className="navbar-nav ">
+                    <li className="nav-item">
+                      <a className="nav-link" href="/mydoc">MyDocument</a>
+                    </li>
+                    <li className="nav-item">
+                      <Link to={"/addDocument"} className="nav-link">
+                        AddDocument
+                      </Link>
+                    </li>
+                  </div>
+                )}
+                {showAdminBoard && (
+                  <div className="navbar-nav ">
+                    <li className="nav-item">
+                      <a className="nav-link" href="/admin">AdminBoard</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/register">AddUser</a>
+                    </li>
+                  </div>
+                )}
+                {currentUser && (
                   <li className="nav-item">
-                    <a className="nav-link" href="/admin">AdminBoard</a>
+                    <a className="nav-link" href="/showdoc">Dashboard</a>
+                  </li>
+                )}
+              </div>
+              {currentUser ? (
+                <div className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <a className="nav-link" href="/profile">Profile</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/register">AddUser</a>
+                    <a href="/login" className="nav-link" onClick={this.logOut}>
+                      LogOut
+                    </a>
                   </li>
                 </div>
-              )}
-              {currentUser && (
-                <li className="nav-item">
-                  <a className="nav-link" href="/showdoc">Dashboard</a>
-                </li>
+              ) : (
+                <div className="navbar-nav">
+                  <li className="nav-item">
+                    <a className="nav-link" href="/login">Login</a>
+                  </li>
+                </div>
               )}
             </div>
-            {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <a className="nav-link" href="/profile">Profile</a>
-                </li>
-                <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
-                  </a>
-                </li>
-              </div>
-            ) : (
-              <div className="navbar-nav">
-                <li className="nav-item">
-                  <a className="nav-link" href="/login">Login</a>
-                </li>
-                              </div>
-            )}
-          </div>
           </div>
         </nav>
         <div className="container mt-3">

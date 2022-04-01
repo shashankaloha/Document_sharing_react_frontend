@@ -33,7 +33,7 @@ label {
 }
 .navbar{
   padding-left: 20px;
-  background-color: rgb(128, 191, 216);
+  background-image: linear-gradient(rgb(9, 113, 173), rgba(20, 223, 217, 0.3));
   padding: 0%;
   }
 .navbar-brand{
@@ -43,4 +43,3 @@ label {
   color: #f7f7f7;
   font-size: 20px;
 }
-
